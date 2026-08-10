@@ -1,0 +1,9 @@
+name: 'Voto'
+type: module
+description: 'Voto ou Votar'
+package: VotingSystem
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:paragraphs
+  - drupal:views
+  - vs_voting

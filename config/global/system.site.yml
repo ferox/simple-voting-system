@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: HlN7eAN2N4JIHsYv56V4E7sqC9bS609KwvGFjyD_mgk
+langcode: en-gb
+uuid: e8e7dbf0-930e-4fb5-a453-c3bf99346b09
+name: 'Sistema de Votação'
+mail: contato@voting-system.lndo.site
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /user/login
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: pt-br
+mail_notification: null

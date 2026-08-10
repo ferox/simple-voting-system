@@ -1,0 +1,94 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides hooks for voting settings entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function vs_voting_settings_theme(): array {
+  return [
+    'voting_settings' => ['render element' => 'elements'],
+  ];
+}
+
+/**
+ * Prepares variables for voting settings templates.
+ *
+ * Default template: voting-settings.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the voting settings information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_voting_settings(array &$variables): void {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function vs_voting_settings_user_cancel($edit, UserInterface $account, $method): void {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish voting settings.
+      $storage = \Drupal::entityTypeManager()->getStorage('voting_settings');
+
+      $voting_settings_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+
+      foreach ($storage->loadMultiple($voting_settings_ids) as $voting_settings) {
+        $voting_settings->set('status', FALSE)->save();
+      }
+
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize voting settings.
+      $storage = \Drupal::entityTypeManager()->getStorage('voting_settings');
+
+      $voting_settings_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->accessCheck(FALSE)
+        ->execute();
+
+      foreach ($storage->loadMultiple($voting_settings_ids) as $voting_settings) {
+        $voting_settings->setOwnerId(0)->save();
+      }
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function vs_voting_settings_user_predelete(UserInterface $account): void {
+  // Delete voting settings that belong to this account.
+  $storage = \Drupal::entityTypeManager()->getStorage('voting_settings');
+
+  $voting_settings_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+
+  $storage->delete(
+    $storage->loadMultiple($voting_settings_ids)
+  );
+}

@@ -1,0 +1,20 @@
+uuid: 9e531dff-de49-44a5-bff9-8a0005ac089e
+langcode: pt-br
+status: true
+dependencies:
+  theme:
+    - default_admin
+_core:
+  default_config_hash: CaTkocqIGci5JCxUVHC6mwT3he3MSfhVvucVivgebdI
+id: default_admin_page_title
+theme: default_admin
+region: header
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Título da página'
+  label_display: '0'
+  provider: core
+visibility: {  }

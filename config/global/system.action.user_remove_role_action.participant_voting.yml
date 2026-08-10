@@ -1,0 +1,14 @@
+uuid: d07f3499-62eb-4da5-bcc6-0e153f6e01b5
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - user.role.participant_voting
+  module:
+    - user
+id: user_remove_role_action.participant_voting
+label: 'Remover o papel Participante de Votações dos usuários selecionados'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: participant_voting

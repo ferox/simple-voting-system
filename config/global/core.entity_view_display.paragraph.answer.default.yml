@@ -1,0 +1,39 @@
+uuid: 7d364c4c-615d-45ca-b8c2-ef0272fa4337
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.answer.field_answer
+    - field.field.paragraph.answer.field_description
+    - field.field.paragraph.answer.field_image
+    - paragraphs.paragraphs_type.answer
+id: paragraph.answer.default
+targetEntityType: paragraph
+bundle: answer
+mode: default
+content:
+  field_answer:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_image:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

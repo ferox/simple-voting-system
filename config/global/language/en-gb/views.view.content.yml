@@ -1,0 +1,44 @@
+label: Content
+display:
+  default:
+    display_title: Default
+    display_options:
+      title: Content
+      fields:
+        title:
+          label: Title
+        name:
+          label: Author
+        status:
+          label: Status
+          settings:
+            format_custom_true: Published
+        langcode:
+          label: Language
+        operations:
+          label: Operations
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      filters:
+        title:
+          expose:
+            label: Title
+        status:
+          expose:
+            label: Status
+          group_info:
+            group_items:
+              1:
+                title: Published
+        langcode:
+          expose:
+            label: Language
+  page_1:
+    display_title: Page
+    display_options:
+      menu:
+        title: Content
+      tab_options:
+        title: Content

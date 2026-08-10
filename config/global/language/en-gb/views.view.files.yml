@@ -1,0 +1,40 @@
+label: Files
+display:
+  default:
+    display_title: Default
+    display_options:
+      title: Files
+      fields:
+        filename:
+          label: Name
+        filemime:
+          label: 'MIME type'
+        filesize:
+          label: Size
+        status:
+          label: Status
+        count:
+          label: 'Used in'
+        operations:
+          label: Operations
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      filters:
+        filemime:
+          expose:
+            label: 'MIME type'
+        status:
+          expose:
+            label: Status
+  page_1:
+    display_options:
+      menu:
+        title: Files
+  page_2:
+    display_options:
+      arguments:
+        fid:
+          exception:
+            title: All

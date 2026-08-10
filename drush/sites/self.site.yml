@@ -1,0 +1,3 @@
+lando:
+  root: /app/web
+  uri: 'https://voting-system.lndo.site'

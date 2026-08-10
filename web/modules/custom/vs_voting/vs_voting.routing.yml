@@ -1,0 +1,106 @@
+entity.voting.settings:
+  path: 'admin/structure/voting'
+  defaults:
+    _form: '\Drupal\vs_voting\Form\VotingSettingsForm'
+    _title: 'Votação'
+  requirements:
+    _permission: 'administer voting'
+
+vs_voting.observability_dashboard:
+  path: '/admin/reports/voting-observability'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Admin\VotingObservabilityController::dashboard'
+    _title: 'Observabilidade do Sistema de Votação'
+  requirements:
+    _permission: 'view voting observability'
+  options:
+    _admin_route: TRUE
+
+vs_voting.voting_participate:
+  path: '/admin/content/voting/{voting}/participate'
+  defaults:
+    _entity_form: 'vote.participate'
+    _title_callback: '\Drupal\vs_voting\Controller\VotingTitleController::participateTitle'
+  requirements:
+    _custom_access: 'vs_voting.participation_access:access'
+  options:
+    _admin_route: TRUE
+    parameters:
+      voting:
+        type: entity:voting
+
+vs_voting.api.voting_collection:
+  path: '/api/v1/votings'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Api\VotingApiController::collection'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'access voting api'
+  methods: [GET]
+  options:
+    _auth:
+      - oauth2
+
+vs_voting.api.voting_detail:
+  path: '/api/v1/votings/{voting}'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Api\VotingApiController::detail'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'access voting api'
+    voting: '\d+'
+  methods: [GET]
+  options:
+    _auth:
+      - oauth2
+    parameters:
+      voting:
+        type: entity:voting
+
+vs_voting.api.vote_create:
+  path: '/api/v1/votings/{voting}/votes'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Api\VoteApiController::createVote'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'participate in voting'
+    voting: '\d+'
+  methods: [POST]
+  options:
+    _auth:
+      - oauth2
+    parameters:
+      voting:
+        type: entity:voting
+
+vs_voting.api.voting_results:
+  path: '/api/v1/votings/{voting}/results'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Api\VotingResultsApiController::results'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'access voting results'
+    voting: '\d+'
+  methods: [GET]
+  options:
+    _auth:
+      - oauth2
+    parameters:
+      voting:
+        type: entity:voting
+
+vs_voting.health.live:
+  path: '/health/live'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Api\HealthCheckController::live'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+
+vs_voting.health.ready:
+  path: '/health/ready'
+  defaults:
+    _controller: '\Drupal\vs_voting\Controller\Api\HealthCheckController::ready'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]

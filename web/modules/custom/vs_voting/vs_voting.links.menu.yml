@@ -1,0 +1,17 @@
+entity.voting.settings:
+  title: 'Votação'
+  description: 'Configuração Votação do tipo de entidade.'
+  route_name:  entity.voting.settings
+  parent: system.admin_structure
+
+entity.voting.collection:
+  title: 'Votações'
+  description: 'Lista de votações.'
+  route_name: entity.voting.collection
+  parent: system.admin_content
+
+vs_voting.observability_dashboard:
+  title: 'Observabilidade das votações'
+  description: 'Acompanhe métricas e rastros recentes da API de votações.'
+  route_name: vs_voting.observability_dashboard
+  parent: system.admin_reports

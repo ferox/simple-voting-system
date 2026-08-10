@@ -1,0 +1,25 @@
+<label class="voting-answer-card" for="voting-answer-{{ answer_id }}">
+  <span class="voting-answer-card__radio">
+    {{ radio }}
+  </span>
+
+  {% if image %}
+    <span class="voting-answer-card__image">
+      {{ image }}
+    </span>
+  {% endif %}
+
+  <span class="voting-answer-card__body">
+    {% if title %}
+      <strong class="voting-answer-card__title">
+        {{ title }}
+      </strong>
+    {% endif %}
+
+    {% if description %}
+      <span id="voting-answer-description-{{ answer_id }}" class="voting-answer-card__description">
+        {{ description }}
+      </span>
+    {% endif %}
+  </span>
+</label>

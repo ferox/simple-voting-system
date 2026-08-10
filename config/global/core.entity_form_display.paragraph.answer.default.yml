@@ -1,0 +1,42 @@
+uuid: 18ae4368-38a6-4083-bcef-cb0d74ef26ce
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.answer.field_answer
+    - field.field.paragraph.answer.field_description
+    - field.field.paragraph.answer.field_image
+    - paragraphs.paragraphs_type.answer
+  module:
+    - media_library
+id: paragraph.answer.default
+targetEntityType: paragraph
+bundle: answer
+mode: default
+content:
+  field_answer:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_description:
+    type: string_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: media_library_widget
+    weight: 1
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

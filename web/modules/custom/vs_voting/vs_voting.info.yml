@@ -1,0 +1,12 @@
+name: 'Votação'
+type: module
+description: 'Votação'
+package: VotingSystem
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:media
+  - drupal:navigation
+  - drupal:paragraphs
+  - drupal:simple_oauth
+  - drupal:views
+  - vs_voting_settings

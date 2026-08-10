@@ -1,0 +1,22 @@
+uuid: 29c05705-b73a-42e5-a940-5d1a65ae6dea
+langcode: pt-br
+status: true
+dependencies: {  }
+id: voting_system_scope
+name: voting_system_scope
+description: 'Scopo do Sistema de Votação'
+grant_types:
+  refresh_token:
+    status: false
+    description: ''
+  authorization_code:
+    status: false
+    description: ''
+  client_credentials:
+    status: true
+    description: ''
+umbrella: false
+parent: _none
+granularity_id: role
+granularity_configuration:
+  role: participant_voting

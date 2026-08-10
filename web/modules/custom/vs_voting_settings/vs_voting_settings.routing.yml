@@ -1,0 +1,7 @@
+entity.voting_settings.settings:
+  path: 'admin/structure/voting-settings'
+  defaults:
+    _form: '\Drupal\vs_voting_settings\Form\VotingSettingsSettingsForm'
+    _title: 'Configuração da Votação'
+  requirements:
+    _permission: 'administer voting_settings'

@@ -1,0 +1,27 @@
+administer voting:
+  title: 'Administer votaçãos'
+  restrict access: true
+administer voting api:
+  title: 'Administrar API de votações'
+  restrict access: true
+access voting api:
+  title: 'Acessar API de votações'
+  description: 'Permite consultar votações disponíveis e seus detalhes.'
+access voting results:
+  title: 'Visualizar resultados das votações'
+  description: 'Permite consultar os resultados das votações.'
+view voting observability:
+  title: 'Visualizar observabilidade das votações'
+  description: 'Permite inspecionar métricas e rastros operacionais da API de votações.'
+  restrict access: true
+participate in voting:
+  title: 'Participar de votações'
+  description: 'Permite registrar um voto em uma votação ativa.'
+view voting:
+  title: 'View votação'
+edit voting:
+  title: 'Edit votação'
+delete voting:
+  title: 'Delete votação'
+create voting:
+  title: 'Create votação'

@@ -1,0 +1,3 @@
+administer votes:
+  title: 'Administrar votos registrados'
+  restrict access: true

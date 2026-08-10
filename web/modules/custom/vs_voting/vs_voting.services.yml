@@ -1,0 +1,150 @@
+services:
+  logger.channel.vs_voting_api:
+    parent: logger.channel_base
+    arguments: ['vs_voting_api']
+
+  vs_voting.participation_helper:
+    class: Drupal\vs_voting\VotingParticipationHelper
+    arguments:
+      - '@entity_type.manager'
+
+  vs_voting.participation_access:
+    class: Drupal\vs_voting\Access\VotingParticipationAccess
+    arguments:
+      - '@vs_voting.participation_helper'
+
+  vs_voting.request_context:
+    class: Drupal\vs_voting\Service\VotingRequestContext
+    arguments:
+      - '@request_stack'
+
+  vs_voting.response_factory:
+    class: Drupal\vs_voting\Service\VotingApiResponseFactory
+    arguments:
+      - '@vs_voting.request_context'
+
+  vs_voting.metrics:
+    class: Drupal\vs_voting\Observability\VotingMetrics
+    arguments:
+      - '@database'
+      - '@datetime.time'
+
+  vs_voting.tracer:
+    class: Drupal\vs_voting\Observability\VotingTracer
+    arguments:
+      - '@database'
+      - '@datetime.time'
+      - '@vs_voting.request_context'
+      - '@vs_voting.metrics'
+
+  vs_voting.repository:
+    class: Drupal\vs_voting\Service\VotingRepository
+    arguments:
+      - '@entity_type.manager'
+      - '@vs_voting.participation_helper'
+
+  vs_voting.question_manager:
+    class: Drupal\vs_voting\Service\VotingQuestionManager
+    arguments:
+      - '@renderer'
+      - '@file_url_generator'
+
+  vs_voting.answer_normalizer:
+    class: Drupal\vs_voting\Normalizer\AnswerNormalizer
+    arguments:
+      - '@vs_voting.question_manager'
+
+  vs_voting.question_normalizer:
+    class: Drupal\vs_voting\Normalizer\QuestionNormalizer
+    arguments:
+      - '@vs_voting.question_manager'
+      - '@vs_voting.answer_normalizer'
+
+  vs_voting.voting_normalizer:
+    class: Drupal\vs_voting\Normalizer\VotingNormalizer
+    arguments:
+      - '@vs_voting.participation_helper'
+      - '@vs_voting.question_normalizer'
+
+  vs_voting.vote_normalizer:
+    class: Drupal\vs_voting\Normalizer\VoteNormalizer
+
+  vs_voting.results_normalizer:
+    class: Drupal\vs_voting\Normalizer\VotingResultsNormalizer
+
+  vs_voting.results_manager:
+    class: Drupal\vs_voting\Service\VotingResultsManager
+    arguments:
+      - '@database'
+      - '@cache.default'
+      - '@vs_voting.participation_helper'
+      - '@logger.channel.vs_voting_api'
+      - '@vs_voting.metrics'
+
+  vs_voting.vote_manager:
+    class: Drupal\vs_voting\Service\VoteManager
+    arguments:
+      - '@entity_type.manager'
+      - '@database'
+      - '@cache.default'
+      - '@vs_voting.participation_helper'
+      - '@vs_voting.request_context'
+      - '@logger.channel.vs_voting_api'
+      - '@vs_voting.metrics'
+      - '@vs_voting.tracer'
+
+  Drupal\vs_voting\Service\VoteManagerInterface:
+    alias: vs_voting.vote_manager
+
+  vs_voting.request_correlation_subscriber:
+    class: Drupal\vs_voting\EventSubscriber\RequestCorrelationSubscriber
+    arguments:
+      - '@vs_voting.request_context'
+      - '@uuid'
+    tags:
+      - { name: event_subscriber }
+
+  vs_voting.api_exception_subscriber:
+    class: Drupal\vs_voting\EventSubscriber\ApiExceptionSubscriber
+    arguments:
+      - '@vs_voting.response_factory'
+      - '@vs_voting.metrics'
+    tags:
+      - { name: event_subscriber }
+
+  vs_voting.api.voting_controller:
+    class: Drupal\vs_voting\Controller\Api\VotingApiController
+    arguments:
+      - '@current_user'
+      - '@vs_voting.repository'
+      - '@vs_voting.voting_normalizer'
+      - '@vs_voting.response_factory'
+      - '@vs_voting.metrics'
+
+  vs_voting.api.vote_controller:
+    class: Drupal\vs_voting\Controller\Api\VoteApiController
+    arguments:
+      - '@current_user'
+      - '@vs_voting.vote_manager'
+      - '@vs_voting.vote_normalizer'
+      - '@vs_voting.response_factory'
+      - '@vs_voting.request_context'
+      - '@vs_voting.metrics'
+
+  vs_voting.api.results_controller:
+    class: Drupal\vs_voting\Controller\Api\VotingResultsApiController
+    arguments:
+      - '@vs_voting.results_manager'
+      - '@vs_voting.results_normalizer'
+      - '@vs_voting.response_factory'
+      - '@vs_voting.metrics'
+
+  vs_voting.api.health_controller:
+    class: Drupal\vs_voting\Controller\Api\HealthCheckController
+    arguments:
+      - '@database'
+      - '@entity_type.manager'
+      - '@module_handler'
+      - '@config.factory'
+      - '@vs_voting.response_factory'
+      - '@vs_voting.metrics'

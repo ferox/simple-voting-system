@@ -1,0 +1,5 @@
+voting_settings.add_form:
+  title: 'Adicionar configuração da votação'
+  route_name: entity.voting_settings.add_form
+  appears_on:
+    - entity.voting_settings.collection

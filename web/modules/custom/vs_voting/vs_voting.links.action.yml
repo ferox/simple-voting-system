@@ -1,0 +1,5 @@
+voting.add_form:
+  title: 'Adicionar votação'
+  route_name: entity.voting.add_form
+  appears_on:
+    - entity.voting.collection

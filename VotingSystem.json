@@ -1,0 +1,223 @@
+{
+  "info": {
+    "name": "VotingSystem",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Gerar Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "description": "",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "https://voting-system.lndo.site/oauth/token",
+          "protocol": "https",
+          "host": [
+            "voting-system",
+            "lndo",
+            "site"
+          ],
+          "path": [
+            "oauth",
+            "token"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "disabled": false,
+              "type": "default",
+              "description": ""
+            },
+            {
+              "key": "client_id",
+              "value": "default_consumer",
+              "disabled": false,
+              "type": "default",
+              "description": ""
+            },
+            {
+              "key": "client_secret",
+              "value": "12345678",
+              "disabled": false,
+              "type": "default",
+              "description": ""
+            },
+            {
+              "key": "scope",
+              "value": "voting_system_scope",
+              "disabled": false,
+              "type": "default",
+              "description": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Listar Votações",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "https://voting-system.lndo.site/api/v1/votings",
+          "protocol": "https",
+          "host": [
+            "voting-system",
+            "lndo",
+            "site"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "votings"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Listar Uma Votação",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "https://voting-system.lndo.site/api/v1/votings/3",
+          "protocol": "https",
+          "host": [
+            "voting-system",
+            "lndo",
+            "site"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "votings",
+            "3"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Registrar Um Voto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "",
+            "disabled": false,
+            "type": "default"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "",
+            "disabled": false,
+            "type": "default"
+          },
+          {
+            "key": "Idempotency-Key",
+            "value": "0198f2cc-4e92-7aef-86be-7e61ef8837cf",
+            "description": "",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "https://voting-system.lndo.site/api/v1/votings/3/votes",
+          "protocol": "https",
+          "host": [
+            "voting-system",
+            "lndo",
+            "site"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "votings",
+            "3",
+            "votes"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"answer_id\": 12\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "variable": []
+}

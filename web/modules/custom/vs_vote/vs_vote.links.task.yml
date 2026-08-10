@@ -1,0 +1,22 @@
+entity.vote.settings:
+  title: 'Settings'
+  route_name: entity.vote.settings
+  base_route: entity.vote.settings
+entity.vote.view:
+  title: 'View'
+  route_name: entity.vote.canonical
+  base_route: entity.vote.canonical
+entity.vote.edit_form:
+  title: 'Edit'
+  route_name: entity.vote.edit_form
+  base_route: entity.vote.canonical
+entity.vote.delete_form:
+  title: 'Delete'
+  route_name: entity.vote.delete_form
+  base_route: entity.vote.canonical
+  weight: 10
+entity.vote.collection:
+  title: 'Votos'
+  route_name: entity.vote.collection
+  base_route: system.admin_content
+  weight: 10

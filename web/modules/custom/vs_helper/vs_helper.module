@@ -1,0 +1,26 @@
+<?php
+
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
+
+/**
+ * @file
+ * Primary module hooks for vs_helper module.
+ */
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function vs_helper_menu_local_tasks_alter(&$data, $route_name, RefinableCacheableDependencyInterface &$cacheability) {
+  $list_route_links = [
+    'system.admin_content',
+    'entity.media.collection',
+    'view.files.page_1',
+    'entity.voting_settings.collection',
+    'entity.voting.collection',
+    'entity.vote.collection',
+  ];
+
+  if (in_array($route_name, $list_route_links, TRUE) && isset($data['tabs'][0]['system.admin_content'])) {
+    unset($data['tabs'][0]['system.admin_content']);
+  }
+}

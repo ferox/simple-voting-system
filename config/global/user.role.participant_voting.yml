@@ -1,0 +1,23 @@
+uuid: f40c6f09-56e4-43c7-b1b4-45fca7c798a7
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - navigation
+    - system
+    - toolbar
+    - vs_voting
+id: participant_voting
+label: 'Participante de Votações'
+weight: 3
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access navigation'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'access voting api'
+  - 'cancel account'
+  - 'change own username'
+  - 'participate in voting'
+  - 'view user email addresses'

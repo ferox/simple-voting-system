@@ -1,0 +1,5 @@
+name: 'vs_helper'
+type: module
+description: 'Voting System Helper'
+package: VotingSystem
+core_version_requirement: ^10 || ^11

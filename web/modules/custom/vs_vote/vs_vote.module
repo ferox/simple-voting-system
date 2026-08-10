@@ -1,0 +1,119 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides the vote entity type and related hooks.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function vs_vote_theme(): array {
+  return [
+    'vote' => ['render element' => 'elements'],
+  ];
+}
+
+/**
+ * Implements hook_gin_ignore_sticky_form_actions().
+ */
+function vs_vote_gin_ignore_sticky_form_actions(): array {
+  return [
+    'vote_participate_form',
+  ];
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function vs_vote_views_data_alter(array &$data): void {
+  if (! isset($data['vote'])) {
+    return;
+  }
+
+  $data['vote']['selected_answer_title'] = [
+    'title' => t('Título da resposta'),
+    'help' => t('Displays the configured title of the selected answer paragraph.'),
+    'field' => [
+      'id' => 'vote_answer_title',
+      'additional fields' => [
+        'selected_answer' => 'selected_answer',
+      ],
+    ],
+  ];
+
+  $data['vote']['voting_title_display'] = [
+    'title' => t('Voting title display'),
+    'help' => t('Displays the voting title as a link for admins and plain text for participants.'),
+    'field' => [
+      'id' => 'vote_voting_title',
+      'additional fields' => [
+        'voting' => 'voting',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for vote templates.
+ */
+function template_preprocess_vote(array &$variables): void {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function vs_vote_user_cancel($edit, UserInterface $account, $method): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('vote');
+
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      $vote_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+
+      foreach ($storage->loadMultiple($vote_ids) as $vote) {
+        $vote->set('status', FALSE)->save();
+      }
+
+      break;
+
+    case 'user_cancel_reassign':
+      $vote_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->accessCheck(FALSE)
+        ->execute();
+
+      foreach ($storage->loadMultiple($vote_ids) as $vote) {
+        $vote->setOwnerId(0)->save();
+      }
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function vs_vote_user_predelete(UserInterface $account): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('vote');
+
+  $vote_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+
+  $storage->delete($storage->loadMultiple($vote_ids));
+}

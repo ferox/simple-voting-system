@@ -1,0 +1,10 @@
+entity.voting.edit_form:
+  route_name: entity.voting.edit_form
+  group: voting
+  title: 'Edit'
+
+entity.voting.delete_form:
+  route_name: entity.voting.delete_form
+  group: voting
+  title: 'Delete'
+  weight: 10

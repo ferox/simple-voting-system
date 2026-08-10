@@ -1,0 +1,35 @@
+uuid: 8031e5de-8f3d-4309-b9c5-fa3140f29761
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.voting_answer
+    - field.field.media.image.field_media_image
+    - image.style.medium
+    - media.type.image
+  module:
+    - image
+_core:
+  default_config_hash: irLrN4wFJm6LhP9v0e86Yz8j4Y4sXUe9r2I4Mj1xS7Q
+id: media.image.voting_answer
+targetEntityType: media
+bundle: image
+mode: voting_answer
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: medium
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

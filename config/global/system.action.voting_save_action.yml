@@ -1,0 +1,13 @@
+uuid: 6a53c6f9-3f57-47aa-9ca6-d686c40d5747
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - vs_voting
+_core:
+  default_config_hash: SvdqA0zYUUDNaYPAW2CSR904IVpnXZWYuiO779GAmGY
+id: voting_save_action
+label: 'Save votaçãos'
+type: voting
+plugin: 'entity:save_action:voting'
+configuration: {  }

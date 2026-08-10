@@ -1,0 +1,121 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides voting entities and participation UI.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function vs_voting_theme(): array {
+  return [
+    'voting' => ['render element' => 'elements'],
+    'voting_answer_card' => [
+      'variables' => [
+        'radio' => NULL,
+        'title' => NULL,
+        'description' => NULL,
+        'image' => NULL,
+        'answer_id' => NULL,
+      ],
+      'template' => 'voting-answer-card',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for voting templates.
+ */
+function template_preprocess_voting(array &$variables): void {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function vs_voting_views_data_alter(array &$data): void {
+  if (!isset($data['voting_field_data'])) {
+    return;
+  }
+
+  $data['voting_field_data']['title_display'] = [
+    'title' => t('Voting title display'),
+    'help' => t('Displays the voting title as a link for admins and plain text for participants.'),
+    'field' => [
+      'id' => 'voting_title_display',
+      'additional fields' => [
+        'title' => 'title',
+      ],
+    ],
+  ];
+
+  $data['voting_field_data']['voting_settings_display'] = [
+    'title' => t('Voting settings display'),
+    'help' => t('Displays the voting settings label as a link for admins and plain text for participants.'),
+    'field' => [
+      'id' => 'voting_settings_display',
+      'additional fields' => [
+        'voting_settings' => 'voting_settings',
+      ],
+    ],
+  ];
+
+  $data['voting_field_data']['participate_link'] = [
+    'title' => t('Participate link'),
+    'help' => t('Displays the voting participation action for the current user.'),
+    'field' => [
+      'id' => 'voting_participate_link',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function vs_voting_user_cancel($edit, UserInterface $account, $method): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('voting');
+
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      $voting_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($voting_ids) as $voting) {
+        $voting->set('status', FALSE)->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      $voting_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($voting_ids) as $voting) {
+        $voting->setOwnerId(0)->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function vs_voting_user_predelete(UserInterface $account): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('voting');
+  $voting_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+  $storage->delete($storage->loadMultiple($voting_ids));
+}

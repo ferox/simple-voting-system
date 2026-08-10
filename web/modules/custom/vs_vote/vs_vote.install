@@ -1,0 +1,79 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install hooks for vs_vote.
+ */
+
+/**
+ * Adds vote indexes and unique keys required by the API flow.
+ */
+function vs_vote_update_11001(): void {
+  $schema = \Drupal::database()->schema();
+  $table = 'vote';
+
+  $index_spec = [
+    'fields' => [
+      'voting' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'selected_answer' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'created' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+  ];
+
+  if (! $schema->fieldExists($table, 'idempotency_key')) {
+    return;
+  }
+
+  $duplicate_query = \Drupal::database()->select($table, 'v');
+  $duplicate_query->fields('v', ['voting', 'uid']);
+  $duplicate_query->condition('uid', 0, '>');
+  $duplicate_query->groupBy('voting');
+  $duplicate_query->groupBy('uid');
+  $duplicate_query->having('COUNT(id) > 1');
+  $duplicate_query->range(0, 1);
+
+  if (! $schema->indexExists($table, 'vote__voting__uid') && $duplicate_query->execute()->fetchAssoc()) {
+    throw new \Drupal\Core\Utility\UpdateException('Existem votos duplicados para a combinação (voting, uid). Resolva-os manualmente antes de aplicar a chave única.');
+  }
+
+  if (! $schema->indexExists($table, 'vote__voting__uid')) {
+    $schema->addUniqueKey($table, 'vote__voting__uid', ['voting', 'uid']);
+  }
+
+  if (! $schema->indexExists($table, 'vote__uid__idempotency_key')) {
+    $schema->addUniqueKey($table, 'vote__uid__idempotency_key', ['uid', 'idempotency_key']);
+  }
+
+  if (! $schema->indexExists($table, 'vote_voting_answer')) {
+    $schema->addIndex($table, 'vote_voting_answer', ['voting', 'selected_answer'], $index_spec);
+  }
+
+  if (! $schema->indexExists($table, 'vote_voting_created')) {
+    $schema->addIndex($table, 'vote_voting_created', ['voting', 'created'], $index_spec);
+  }
+
+  if (! $schema->indexExists($table, 'vote_uid_created')) {
+    $schema->addIndex($table, 'vote_uid_created', ['uid', 'created'], $index_spec);
+  }
+}

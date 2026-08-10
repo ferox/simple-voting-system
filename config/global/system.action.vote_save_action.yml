@@ -1,0 +1,13 @@
+uuid: 4d9e4427-8179-4ca7-b25c-c4d9c7c16baf
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - vs_vote
+_core:
+  default_config_hash: 4s6d6G4R2dr9iv_wm5W4aY8SrEGfUZB0S49yPe8k9fI
+id: vote_save_action
+label: 'Save votes'
+type: vote
+plugin: 'entity:save_action:vote'
+configuration: {  }

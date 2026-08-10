@@ -1,0 +1,7 @@
+entity.vote.settings:
+  path: 'admin/structure/vote'
+  defaults:
+    _form: '\Drupal\vs_vote\Form\VoteSettingsForm'
+    _title: 'Voto'
+  requirements:
+    _permission: 'administer votes'

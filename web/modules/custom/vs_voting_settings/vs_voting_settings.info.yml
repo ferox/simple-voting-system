@@ -1,0 +1,5 @@
+name: 'Configuração da Votação'
+type: module
+description: 'Configuração da Votação'
+package: VotingSystem
+core_version_requirement: ^10 || ^11

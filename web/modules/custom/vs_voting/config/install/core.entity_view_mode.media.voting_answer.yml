@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.voting_answer
+label: 'Voting answer'
+description: 'Compact image rendering for answer cards.'
+targetEntityType: media
+cache: true

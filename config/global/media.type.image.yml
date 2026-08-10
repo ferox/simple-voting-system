@@ -1,0 +1,13 @@
+uuid: c90cd581-036b-4e11-9b15-4adc36cf6872
+langcode: pt-br
+status: true
+dependencies: {  }
+id: image
+label: Imagem
+description: ''
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_image
+field_map: {  }

@@ -1,0 +1,4 @@
+voting_participation:
+  css:
+    component:
+      css/voting-participation.css: {}

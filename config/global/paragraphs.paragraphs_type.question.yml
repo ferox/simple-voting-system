@@ -1,0 +1,10 @@
+uuid: fa5d8cc2-c8af-41f9-8a23-dbe14ed734bf
+langcode: pt-br
+status: true
+dependencies: {  }
+id: question
+label: Pergunta
+icon_uuid: null
+icon_default: null
+description: 'Pergunta com respostas para a votação.'
+behavior_plugins: {  }

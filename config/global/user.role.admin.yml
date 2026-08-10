@@ -1,0 +1,146 @@
+uuid: 97d4aac2-9d76-40aa-9a42-76056a30fcbf
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - media.type.image
+  module:
+    - block
+    - contextual
+    - entity_reference_revisions
+    - field_ui
+    - file
+    - filter
+    - help
+    - image
+    - language
+    - layout_builder
+    - locale
+    - media
+    - navigation
+    - node
+    - paragraphs
+    - path
+    - responsive_image
+    - system
+    - toolbar
+    - update
+    - views_ui
+    - vs_vote
+    - vs_voting
+    - vs_voting_settings
+id: admin
+label: Admin
+weight: 2
+is_admin: true
+permissions:
+  - 'access administration pages'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access help pages'
+  - 'access media overview'
+  - 'access navigation'
+  - 'access site in maintenance mode'
+  - 'access site reports'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'access voting api'
+  - 'access voting results'
+  - 'administer account settings'
+  - 'administer actions'
+  - 'administer blocks'
+  - 'administer content types'
+  - 'administer display modes'
+  - 'administer filters'
+  - 'administer image styles'
+  - 'administer languages'
+  - 'administer media'
+  - 'administer media display'
+  - 'administer media fields'
+  - 'administer media form display'
+  - 'administer media types'
+  - 'administer menu'
+  - 'administer modules'
+  - 'administer node display'
+  - 'administer node fields'
+  - 'administer node form display'
+  - 'administer node published status'
+  - 'administer nodes'
+  - 'administer paragraph display'
+  - 'administer paragraph fields'
+  - 'administer paragraph form display'
+  - 'administer paragraphs settings'
+  - 'administer paragraphs types'
+  - 'administer permissions'
+  - 'administer responsive images'
+  - 'administer site configuration'
+  - 'administer software updates'
+  - 'administer themes'
+  - 'administer url aliases'
+  - 'administer user display'
+  - 'administer user fields'
+  - 'administer user form display'
+  - 'administer users'
+  - 'administer views'
+  - 'administer vote display'
+  - 'administer vote fields'
+  - 'administer vote form display'
+  - 'administer votes'
+  - 'administer voting'
+  - 'administer voting api'
+  - 'administer voting display'
+  - 'administer voting fields'
+  - 'administer voting form display'
+  - 'administer voting_settings'
+  - 'administer voting_settings display'
+  - 'administer voting_settings fields'
+  - 'administer voting_settings form display'
+  - 'bypass node access'
+  - 'cancel account'
+  - 'change own username'
+  - 'configure any layout'
+  - 'configure navigation layout'
+  - 'create and edit custom blocks'
+  - 'create image media'
+  - 'create media'
+  - 'create url aliases'
+  - 'create voting'
+  - 'create voting_settings'
+  - 'delete all revisions'
+  - 'delete any file'
+  - 'delete any image media'
+  - 'delete any image media revisions'
+  - 'delete any media'
+  - 'delete media'
+  - 'delete orphan revisions'
+  - 'delete own files'
+  - 'delete own image media'
+  - 'delete voting'
+  - 'delete voting_settings'
+  - 'edit any image media'
+  - 'edit behavior plugin settings'
+  - 'edit own image media'
+  - 'edit voting'
+  - 'edit voting_settings'
+  - 'link to any page'
+  - 'participate in voting'
+  - 'rebuild node access permissions'
+  - 'revert all revisions'
+  - 'revert any image media revisions'
+  - 'select account cancellation method'
+  - 'translate interface'
+  - 'update any media'
+  - 'update media'
+  - 'view all media revisions'
+  - 'view all revisions'
+  - 'view any image media revisions'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view the administration theme'
+  - 'view unpublished paragraphs'
+  - 'view update notifications'
+  - 'view user email addresses'
+  - 'view voting'
+  - 'view voting_settings'

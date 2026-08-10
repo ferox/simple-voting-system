@@ -1,0 +1,10 @@
+uuid: 10ea051b-f5cb-4093-a852-a4569fe39cdc
+langcode: pt-br
+status: true
+dependencies: {  }
+id: answer
+label: Resposta
+icon_uuid: null
+icon_default: null
+description: 'Resposta para a pergunta cadastrada.'
+behavior_plugins: {  }

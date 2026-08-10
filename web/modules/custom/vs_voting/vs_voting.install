@@ -1,0 +1,163 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install hooks for vs_voting.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function vs_voting_schema(): array {
+  return [
+    'vs_voting_metric' => [
+      'description' => 'Aggregated observability metrics for the voting module.',
+      'fields' => [
+        'metric_name' => [
+          'type' => 'varchar',
+          'length' => 128,
+          'not null' => TRUE,
+        ],
+        'metric_type' => [
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => TRUE,
+        ],
+        'labels_hash' => [
+          'type' => 'varchar',
+          'length' => 64,
+          'not null' => TRUE,
+        ],
+        'labels_json' => [
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => TRUE,
+        ],
+        'counter_value' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'sample_count' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'sample_sum' => [
+          'type' => 'float',
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'sample_min' => [
+          'type' => 'float',
+          'not null' => FALSE,
+        ],
+        'sample_max' => [
+          'type' => 'float',
+          'not null' => FALSE,
+        ],
+        'last_value' => [
+          'type' => 'float',
+          'not null' => FALSE,
+        ],
+        'created' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'changed' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+      ],
+      'primary key' => ['metric_name', 'metric_type', 'labels_hash'],
+      'indexes' => [
+        'vs_voting_metric_changed' => ['changed'],
+        'vs_voting_metric_type_changed' => ['metric_type', 'changed'],
+      ],
+    ],
+    'vs_voting_trace' => [
+      'description' => 'Recent traced spans for the voting module.',
+      'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'not null' => TRUE,
+        ],
+        'request_id' => [
+          'type' => 'varchar',
+          'length' => 128,
+          'not null' => FALSE,
+        ],
+        'span_name' => [
+          'type' => 'varchar',
+          'length' => 128,
+          'not null' => TRUE,
+        ],
+        'status' => [
+          'type' => 'varchar',
+          'length' => 16,
+          'not null' => TRUE,
+        ],
+        'context_json' => [
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => TRUE,
+        ],
+        'started' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'duration_ms' => [
+          'type' => 'float',
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+        'exception_class' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => FALSE,
+        ],
+        'exception_message' => [
+          'type' => 'text',
+          'size' => 'big',
+          'not null' => FALSE,
+        ],
+        'created' => [
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'vs_voting_trace_created' => ['created'],
+        'vs_voting_trace_request_id' => ['request_id'],
+        'vs_voting_trace_span_name' => ['span_name'],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Creates observability storage tables for existing installment.
+ */
+function vs_voting_update_11001(): void {
+  $schema = \Drupal::database()->schema();
+  $definitions = vs_voting_schema();
+
+  foreach (['vs_voting_metric', 'vs_voting_trace'] as $table) {
+    if (!$schema->tableExists($table)) {
+      $schema->createTable($table, $definitions[$table]);
+    }
+  }
+}

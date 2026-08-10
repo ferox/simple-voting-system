@@ -1,0 +1,11 @@
+entity.voting_settings.settings:
+  title: 'Configuração da Votação'
+  description: 'Configuração da Votação do tipo de entidade.'
+  route_name:  entity.voting_settings.settings
+  parent: system.admin_structure
+
+entity.voting_settings.collection:
+  title: 'Configuração das Votaçãos'
+  description: 'Lista configuração das votaçãos.'
+  route_name: entity.voting_settings.collection
+  parent: system.admin_content

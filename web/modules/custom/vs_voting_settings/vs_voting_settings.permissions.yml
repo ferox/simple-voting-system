@@ -1,0 +1,11 @@
+administer voting_settings:
+  title: 'Administer configuração da votaçãos'
+  restrict access: true
+view voting_settings:
+  title: 'View configuração da votação'
+edit voting_settings:
+  title: 'Edit configuração da votação'
+delete voting_settings:
+  title: 'Delete configuração da votação'
+create voting_settings:
+  title: 'Create configuração da votação'

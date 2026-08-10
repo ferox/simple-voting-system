@@ -1,0 +1,14 @@
+uuid: 750fcb88-1b4a-4b32-9d23-b945caa98a9d
+langcode: pt-br
+status: true
+dependencies:
+  config:
+    - user.role.participant_voting
+  module:
+    - user
+id: user_add_role_action.participant_voting
+label: 'Adiciona o papel Participante de Votações para o(s) usuário(s) selecionado(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: participant_voting

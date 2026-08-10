@@ -1,0 +1,22 @@
+uuid: ef6e761c-a870-48ee-a92f-87ec6a76ec2d
+langcode: pt-br
+status: true
+dependencies:
+  theme:
+    - default_admin
+_core:
+  default_config_hash: KxeVrufbNdEHyWTX59ecZS4IKqRyAZHDmElZrPbUMmo
+id: default_admin_primary_local_tasks
+theme: default_admin
+region: header
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Abas primárias'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

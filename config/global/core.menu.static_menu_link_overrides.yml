@@ -1,0 +1,81 @@
+_core:
+  default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM
+definitions:
+  navigation__create:
+    menu_name: content
+    parent: ''
+    weight: -50
+    expanded: false
+    enabled: false
+  navigation__content:
+    menu_name: content
+    parent: ''
+    weight: -47
+    expanded: false
+    enabled: false
+  system__admin_content:
+    menu_name: admin
+    parent: system.admin
+    weight: -64
+    expanded: false
+    enabled: true
+  entity__voting_settings__collection:
+    menu_name: admin
+    parent: system.admin_content
+    weight: -65
+    expanded: false
+    enabled: true
+  system__admin_structure:
+    menu_name: admin
+    parent: system.admin
+    weight: -63
+    expanded: false
+    enabled: true
+  system__themes_page:
+    menu_name: admin
+    parent: system.admin
+    weight: -62
+    expanded: false
+    enabled: true
+  system__modules_list:
+    menu_name: admin
+    parent: system.admin
+    weight: -61
+    expanded: false
+    enabled: true
+  system__admin_config:
+    menu_name: admin
+    parent: system.admin
+    weight: -60
+    expanded: false
+    enabled: true
+  entity__user__collection:
+    menu_name: admin
+    parent: system.admin
+    weight: -59
+    expanded: false
+    enabled: true
+  system__admin_reports:
+    menu_name: admin
+    parent: system.admin
+    weight: -58
+    expanded: false
+    enabled: true
+  help__main:
+    menu_name: admin
+    parent: system.admin
+    weight: -57
+    expanded: false
+    enabled: true
+  navigation__files:
+    menu_name: content
+    parent: ''
+    weight: -45
+    expanded: false
+    enabled: true
+  navigation__media:
+    menu_name: content
+    parent: ''
+    weight: -46
+    expanded: false
+    enabled: true

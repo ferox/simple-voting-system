@@ -1,0 +1,13 @@
+uuid: 6fe3ef36-861c-4e93-a96b-8dfec5fb6728
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: u7s1XnAbJw7xUkf2S5TiY1Y3wGQf8h2o6JfQ04LkN4M
+id: media.voting_answer
+label: 'Voting answer'
+description: 'Compact image rendering for answer cards.'
+targetEntityType: media
+cache: true

@@ -1,0 +1,13 @@
+uuid: 54979b9c-759a-4501-a0f5-53a5187585ec
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - vs_voting_settings
+_core:
+  default_config_hash: ImKyXWqViv-ApbbVIylhDR4Ro_oeowmKXtj8Y1MHuEo
+id: voting_settings_delete_action
+label: 'Delete configuração da votaçãos'
+type: voting_settings
+plugin: 'entity:delete_action:voting_settings'
+configuration: {  }
